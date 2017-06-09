@@ -3,23 +3,22 @@ require 'json'
 
 class Kele
   include HTTParty
-  base_uri 'https://www.bloc.io/api/v1'
+    base_uri 'https://www.bloc.io/api/v1'
 
   def initialize(email, password)
-    response = self.class.post('/sessions', body: { email: email, password: password })
-    puts response.code
+    response = Kele.post("/sessions", body: { email: email, password: password })
 
-    if response.code == 200
-      puts 'Welcome'
+    if response && response["auth_token"]
+      @auth_token = response["auth_token"]
+      puts "#{email} has sucessfully logged in"
     else
-      puts 'Invalid Credentials'
+      puts "Login invalid"
     end
-
-    @auth_token = response['auth_token']
   end
 
+
   def get_me
-    response = self.class.get('/users/me', headers: { "authorization" => @auth_token })
-    @user_info = JSON.parse(response.body)
+    response = Kele.get("/users/me", headers: { "authorization" => @auth_token })
+    JSON.parse(response.body)
   end
 end
