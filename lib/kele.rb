@@ -39,9 +39,19 @@ class Kele
 
   def create_message(recipient_id, subject, message)
     response = Kele.post("/messages", body: { "recipient_id": recipient_id, "subject": subject, "stripped-text": message }, headers: { "authorization" => @auth_token })
+    if response["status"] == "submitted"
+      puts "Message has been sent"
+    else
+      puts "Message failed to send"
+    end
   end
 
   def create_submission(checkpoint_id, enrollment_id, assignment_branch, assignment_commit_link, comment)
     response = Kele.post("/checkpoint_submissions", body: { "checkpoint_id": checkpoint_id, "enrollment_id": enrollment_id, "assignment_branch": assignment_branch, "assignment_commit_link": assignment_commit_link, "comment": comment }, headers: { "authorization" => @auth_token })
+    if response["status"] == "submitted"
+      puts "Submission has been sent"
+    else
+      puts "Submission failed to send"
+    end
   end
 end
