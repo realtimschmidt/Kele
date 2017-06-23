@@ -41,7 +41,7 @@ class Kele
     response = Kele.post("/messages", body: { "recipient_id": recipient_id, "subject": subject, "stripped-text": message }, headers: { "authorization" => @auth_token })
   end
 
-  def create_submission(checkpoint_id, assignment_branch, assignment_commit_link, comment)
-    response = Kele.post("/checkpoint_submissions", body: { "checkpoint_id": checkpoint_id, "assignment_branch": assignment_branch, "assignment_commit_link": assignment_commit_link, "comment": comment }, headers: { "authorization" => @auth_token })
+  def create_submission(checkpoint_id, enrollment_id, assignment_branch, assignment_commit_link, comment)
+    response = Kele.post("/checkpoint_submissions", body: { "checkpoint_id": checkpoint_id, "enrollment_id": enrollment_id, "assignment_branch": assignment_branch, "assignment_commit_link": assignment_commit_link, "comment": comment }, headers: { "authorization" => @auth_token })
   end
 end
